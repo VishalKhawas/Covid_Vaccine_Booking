@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+
+    <table class="table table-striped" id="myTable">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">S. No.</th>
+                <th scope="col">Benificiary Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Date of Vaccination</th>
+            </tr>
+        </thead>
+        <!-- <tbody> -->
+        <% if(center.length!=0){ var i=1; center.forEach(function(data){ %>
+            <tr class="searchClass">
+                <th scope="row">
+                    <%= i %>
+                </th>
+                <td>
+                    <%= data[0] %>
+                </td>
+                <td>
+                    <%= data[1] %>
+                </td>
+                <td>
+                    <%= data[2] %>
+                </td>
+            </tr>
+            <% i++; })} %>
+                <!-- </tbody> -->
+    </table>
+
+    <%- include('partials/footer') %>

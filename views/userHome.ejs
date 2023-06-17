@@ -1,0 +1,77 @@
+<%- include('partials/header') %>
+
+<div style="text-align: center; margin: 20px 0px;"><a href="/logout" class="btn btn-danger">Logout</a></div>
+
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Search By Name</span>
+    </div>
+    <input type="text" class="form-control" id="nameInput" onkeyup="searchFun()" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+</div>
+
+<!-- <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Search By Time</span>
+    </div>
+    <input type="text" class="form-control" id="timeInput" onkeyup="searchFun2()" aria-label="Default"
+        aria-describedby="inputGroup-sizing-default">
+</div> -->
+
+<table class="table table-striped" id="myTable">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">S. No.</th>
+            <th scope="col">Center Name</th>
+            <th scope="col">Location</th>
+            <th scope="col">Opening Time</th>
+            <th scope="col">Closing Time</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <!-- <tbody> -->
+        <% if(center.length!=0){ var i=1; center.forEach(function(data){ %>
+            <tr class="searchClass">
+                <th scope="row">
+                    <%= i %>
+                </th>
+                <td>
+                    <%= data.name %>
+                </td>
+                <td>
+                    <%= data.location %>
+                </td>
+                <td>
+                    <%= data.openTime %>
+                </td>
+                <td>
+                    <%= data.closeTime %>
+                </td>
+                <td><a href="/book/<%= data._id %>" class="btn btn-dark">Book Slot</a></td>
+            </tr>
+            <% i++; })} %>
+    <!-- </tbody> -->
+</table>
+
+<script>
+    //implementing search by name function in vanilla js
+    const searchFun=()=>{
+        let filter = document.getElementById("nameInput").value.toUpperCase();
+
+        let myTable = document.getElementById('myTable');
+        let tr = myTable.getElementsByTagName('tr');
+        for(var i=0; i<tr.length; i++){
+            let td=tr[i].getElementsByTagName('td')[0];
+
+            if(td){
+                let text = td.textContent || td.innerHTML;
+                if(text.toUpperCase().indexOf(filter)>-1){
+                    tr[i].style.display="";
+                } else{
+                    tr[i].style.display="none";
+                }
+            }
+        }
+    }
+</script>
+
+<%- include('partials/footer') %>

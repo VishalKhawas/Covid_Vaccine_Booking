@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+
+    <div class="container mt-5">
+        <h1>Add Center</h1>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- Makes POST request to /login route -->
+                        <form action="/addCenter" method="POST">
+                            <div class="form-group">
+                                <label for="name">Center Name</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Center Location</label>
+                                <input type="text" class="form-control" name="location" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="openTime">Opening Time</label>
+                                <input type="time" class="form-control" name="openTime" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="closeTime">Closing Time</label>
+                                <input type="time" class="form-control" name="closeTime" required>
+                            </div>
+                            <button type="submit" class="btn btn-dark">Add Center</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>

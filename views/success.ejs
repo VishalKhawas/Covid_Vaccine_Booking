@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+
+
+    <div class="jumbotron centered">
+        <div class="container">
+            <h3 class="display-3">Thank You <%= data[1] %>!</h3>
+            <p class="lead">Your Vaccination Slot is Booked Now. Kindly Save Your Details.</p>
+            <hr>
+            <center>
+            <div class="card" style="width: 30rem;">
+                <div class="card-header">
+                    <h4>Booking Details</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Center Name: <%= data[0] %></li>
+                    <li class="list-group-item">Center Location: <%= data[5] %></li>
+                    <li class="list-group-item">Date: <%= data[2] %></li>
+                </ul>
+            </div>
+            </center>
+            <p>Kindly Visit the Center in between <%= data[3] %> and <%= data[4] %></p>
+            <hr>
+            <a class="btn btn-dark btn-lg" href="/userHome" role="button">Back To Home</a>
+
+        </div>
+    </div>
+
+
+    <%- include('partials/footer') %>
