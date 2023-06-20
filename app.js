@@ -1,6 +1,6 @@
 //requiring packages
 const express = require('express');
-const bodyParser = require('express');
+const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const alert = require('alert');
@@ -19,6 +19,8 @@ const LocalStrategy = require("passport-local");
 const bookSlot = require('./Server/Controllers/bookSlot');
 const register = require('./Server/Controllers/register');
 const bookingDetails = require('./Server/Controllers/bookingDetails');
+
+const PORT = process.env.PORT || 3000;
  
 const app = express();
 
@@ -133,7 +135,7 @@ app.post("/adminLogin", passport.authenticate('local2', { failureRedirect: '/adm
 });
 
 //get for admin home, diaplayed only when user is authenticated
-app.get("/adminHome", async (req, res)=>{
+app.get("/adminHome", isAuth, async (req, res)=>{
     if(req.isAuthenticated()){
         const allCenters = await Center.find({});
         res.render("adminHome", {center: allCenters});
@@ -144,7 +146,7 @@ app.get("/adminHome", async (req, res)=>{
 });
 
 //get for adding new center
-app.get("/addCenter", (req, res)=>{
+app.get("/addCenter", isAuth, (req, res)=>{
     if(req.isAuthenticated()){
     res.render("addCenter");
     } else{
@@ -153,7 +155,7 @@ app.get("/addCenter", (req, res)=>{
 });
 
 // post for adding new center
-app.post("/addCenter", async (req, res)=>{
+app.post("/addCenter", isAuth, async (req, res)=>{
     const newCenter = new Center({
         name: req.body.name,
         location: req.body.location,
@@ -165,7 +167,7 @@ app.post("/addCenter", async (req, res)=>{
 });
 
 //get for deleting center, only for authenticated user
-app.get("/deleteCenter/:id", async (req, res)=>{
+app.get("/deleteCenter/:id", isAuth, async (req, res)=>{
     if(req.isAuthenticated()){
         let centerId = req.params.id;
         await Center.findByIdAndDelete(centerId);
@@ -178,8 +180,13 @@ app.get("/deleteCenter/:id", async (req, res)=>{
 });
 
 //isAuth function
-function isAuth(req, res, next){
-    if(req.isAuthenticated()) return next();
+async function isAuth(req, res, next){
+    if(req.isAuthenticated()){
+        const adm = await Admin.findById(req.user).exec();
+        console.log(adm);
+        if(adm!=undefined) return next();
+        else res.redirect("/adminLogin");
+    }
     else res.redirect("/adminLogin");
 }
 
@@ -194,7 +201,7 @@ app.get("/adminLogout", (req, res, next)=>{
     });
 });
 
-//listen to port 3000
-app.listen(3000, function(){
+//listen to port 
+app.listen(PORT, function(){
     console.log("Server Started on 3000");
 })
