@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
-const alert = require('alert');
+// const alert = require('alert');
 const User = require('./Server/Models/userSchema');
 const Admin = require('./Server/Models/adminSchema');
 const Center = require('./Server/Models/centerSchema');
@@ -171,7 +171,7 @@ app.get("/deleteCenter/:id", isAuth, async (req, res)=>{
     if(req.isAuthenticated()){
         let centerId = req.params.id;
         await Center.findByIdAndDelete(centerId);
-        alert("Center Deleted Succesfully");
+        // alert("Center Deleted Succesfully");
         const allCenters = await Center.find({});
         res.render("adminHome", {center: allCenters});
     } else{

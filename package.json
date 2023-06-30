@@ -9,7 +9,6 @@
   "author": "Vishal Khawas",
   "license": "ISC",
   "dependencies": {
-    "alert": "^5.1.4",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "dotenv": "^16.3.0",
